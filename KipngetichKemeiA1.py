@@ -2,16 +2,31 @@ import csv
 
 def main():
     items = open('items.csv')
-    csv_items = csv.reader(items)
-
-    menu_choice =menu(items) #calls the main function
-    print(menu_choice)
-
-
-
-def menu(items):
+    csv_file = csv.reader(items)
+    items_list = list(csv_file)
     num_of_items = sum(1 for row in items)  # calculates how many different items there are
 
+
+    menu_choice = menu(items, num_of_items) #calls the main function
+
+    if menu_choice == "R":
+        required_items = run_required(num_of_items, items_list)
+    # elif menu_choice == "C":
+    #     completed_items = run_complete()
+    # elif menu_choice == "A":
+    #     add_items = run_add_new()
+    # elif menu_choice == "M":
+    #     mark_items = run_mark item()
+
+def run_required(num_of_items, items_list):
+    x = 0
+    print("Required items:\n")
+    for row in items_list:
+        if "r" in row:
+            print(x + 1, row[0], "$", row[1], row[2])
+
+
+def menu(items, num_of_items):
     print("Shopping List 1.0 - by Kipngetich Kemei")
     print("{} items loaded from {}".format(num_of_items, items.name))
 
