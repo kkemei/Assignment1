@@ -6,7 +6,6 @@ def main():
     items_list = list(csv_file)
     num_of_items = sum(1 for row in items)  # calculates how many different items there are
 
-
     menu_choice = menu(items, num_of_items) #calls the main function
 
     if menu_choice == "R":
@@ -20,10 +19,18 @@ def main():
 
 def run_required(num_of_items, items_list):
     x = 0
+
+    print(items_list)
+
     print("Required items:\n")
     for row in items_list:
-        if "r" in row:
-            print(x + 1, row[0], "$", row[1], row[2])
+        # items_list.sort()
+        print("{}. {:25} $ {:7} ({})".format(x, row[0], row[1], row[2]))
+        x += 1
+
+    expected_price = float(items_list[0][1]) + float(items_list[1][1]) + float(items_list[2][1])
+
+    print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
 
 
 def menu(items, num_of_items):
