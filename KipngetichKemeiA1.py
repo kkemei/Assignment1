@@ -1,4 +1,5 @@
 import csv
+import operator
 
 
 def main():
@@ -18,15 +19,15 @@ def main():
         if menu_choice == "R":
             required_items = run_required(num_of_items, items_list)
             menu_choice = menu()  # calls the main menu function
-        # elif menu_choice == "A":
-        #     add_items = run_add_new()
+        elif menu_choice == "A":
+            add_items = run_add_new()
+            menu_choice = menu()  # calls the main menu function
         elif menu_choice == "M":
             mark_items = run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked)
             menu_choice = menu()  # calls the main menu function
         elif menu_choice == "C":
             completed_items = run_complete(shopping_list, items_list, number_to_be_marked)
             menu_choice = menu()  # calls the main menu function
-
 
 def menu():
     menu_options = ['R', 'C', 'A', 'M', 'Q']
@@ -45,29 +46,33 @@ def menu():
 
     return menu_choice
 
-
 def run_required(num_of_items, items_list):
     counter = 0
+    ##### GET IT TO LOOP THROUGH AND PRINT THE ROW SO THAT IT CAN HANDLE MORE THAN 3 ROWS
+    expected_price_list = []
     print("Required items:")
+    items_list.sort(key=operator.itemgetter(2))
     for row in items_list:
-        # items_list[0][2].sort()
         print("{}. {:25} $ {:7} ({})".format(counter, row[0], row[1], row[2]))
+        expected_price_list.append(float((items_list[counter][1])))
         counter += 1
+    expected_price = sum(expected_price_list)
 
-    expected_price = float(items_list[0][1]) + float(items_list[1][1]) + float(items_list[2][1])
+    # expected_price_list = float(items_list[0][1]) + float(items_list[1][1]) + float(items_list[2][1])
 
     print("total expected price for {} items is: ${}\n".format(num_of_items, expected_price))
     return expected_price
 
-
 def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
     number = 0
+    expected_price_list = []
+    items_list.sort(key=operator.itemgetter(2))
     for row in items_list:
-        # items_list[0][2].sort()
         print("{}. {:25} $ {:7} ({})".format(number, row[0], row[1], row[2]))
+        expected_price_list.append(float((items_list[number][1])))
         number += 1
+    expected_price = sum(expected_price_list)
 
-    expected_price = float(items_list[0][1]) + float(items_list[1][1]) + float(items_list[2][1])
     print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
     numbers = [0, 1, 2]
     number_entered = int(input("Enter the number of of an item to mark as completed"))
@@ -79,19 +84,29 @@ def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
     print("{} is marked as complete\n".format(shopping_list[0]))
     return shopping_list, number_to_be_marked
 
-
 def run_complete(shopping_list, items_list, number_to_be_marked):
-    print(number_to_be_marked)
     counter = 0
+    expected_price_list = []
+    num_of_items = sum(1 for row in shopping_list)  # calculates how many different items there are
+    items_list.sort(key=operator.itemgetter(2))
     if not shopping_list:
         print("\nNo complete items\n")
     else:
+        print("Completed Items:\n")
         for row in shopping_list:
-            print("{}. {:25} $ {} ({})".format(counter, shopping_list[0], items_list[number_to_be_marked[counter]][1], items_list[number_to_be_marked[counter]][2]))
+            expected_price_list.append(float((items_list[counter][1])))
+            print("{}. {:25} $ {} ({})".format(counter, shopping_list[counter], items_list[number_to_be_marked[counter]][1],
+                                               items_list[number_to_be_marked[counter]][2]))
             # print("{}. {}".format(counter, shopping_list))
             counter += 1
+        expected_price = sum(expected_price_list)
+        print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
 
-            print(shopping_list)
-            print("Completed Items\n")
+def run_add_new():
+    # item_name = input("Please enter a item name:")
+    # while not item_name:
+    print("test")
+
+
 
 main()
