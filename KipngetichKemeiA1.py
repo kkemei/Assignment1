@@ -64,6 +64,9 @@ def run_required(num_of_items, items_list):
     return expected_price
 
 def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
+
+    ###### GET IT TO PRINT OUT THE RIGHT NAME AFTER A INPUT
+
     number = 0
     expected_price_list = []
     items_list.sort(key=operator.itemgetter(2))
