@@ -48,7 +48,6 @@ def menu():
 
 def run_required(num_of_items, items_list):
     counter = 0
-    ##### GET IT TO LOOP THROUGH AND PRINT THE ROW SO THAT IT CAN HANDLE MORE THAN 3 ROWS
     expected_price_list = []
     print("Required items:")
     items_list.sort(key=operator.itemgetter(2))
@@ -58,15 +57,10 @@ def run_required(num_of_items, items_list):
         counter += 1
     expected_price = sum(expected_price_list)
 
-    # expected_price_list = float(items_list[0][1]) + float(items_list[1][1]) + float(items_list[2][1])
-
     print("total expected price for {} items is: ${}\n".format(num_of_items, expected_price))
     return expected_price
 
 def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
-
-    ###### GET IT TO PRINT OUT THE RIGHT NAME AFTER A INPUT
-
     number = 0
     expected_price_list = []
     items_list.sort(key=operator.itemgetter(2))
@@ -84,7 +78,7 @@ def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
         number_entered = int(input("Enter the number of of an item to mark as completed"))
     number_to_be_marked.append(number_entered)
     shopping_list.append(items_list[number_entered][0])
-    print("{} is marked as complete\n".format(shopping_list[0]))
+    print("{} is marked as complete\n".format(shopping_list[-1]))
     return shopping_list, number_to_be_marked
 
 def run_complete(shopping_list, items_list, number_to_be_marked):
@@ -97,7 +91,7 @@ def run_complete(shopping_list, items_list, number_to_be_marked):
     else:
         print("Completed Items:\n")
         for row in shopping_list:
-            expected_price_list.append(float((items_list[counter][1])))
+            expected_price_list.append(float((items_list[number_to_be_marked[-1]][1])))
             print("{}. {:25} $ {} ({})".format(counter, shopping_list[counter], items_list[number_to_be_marked[counter]][1],
                                                items_list[number_to_be_marked[counter]][2]))
             # print("{}. {}".format(counter, shopping_list))
