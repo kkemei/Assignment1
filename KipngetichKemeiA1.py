@@ -90,6 +90,8 @@ def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
         number_entered = int(input("Enter the number of of an item to mark as completed"))
     number_to_be_marked.append(number_entered)
     shopping_list.append(items_list[number_entered][0])
+    items_list[number_entered][3] = "c"
+    print(items_list)
     print("{} is marked as complete\n".format(shopping_list[-1]))
     return shopping_list, number_to_be_marked
 
@@ -103,15 +105,17 @@ def run_complete(shopping_list, items_list, number_to_be_marked, num_of_items):
         print("\nNo complete items\n")
     else:
         print("Completed Items:\n")
+        print(shopping_list)
         for row in shopping_list:
             expected_price_list.append(float((items_list[number_to_be_marked[-1]][1])))
             print("{}. {:25} $ {} ({})".format(counter, shopping_list[counter],
                                                items_list[number_to_be_marked[counter]][1],
                                                items_list[number_to_be_marked[counter]][2]))
-            # print("{}. {}".format(counter, shopping_list))
             counter += 1
         expected_price = sum(expected_price_list)
         print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
+
+    return shopping_list
 
 
 def run_add_new(items_list):
@@ -125,6 +129,7 @@ def run_add_new(items_list):
     item_price = int(input("Item Price:"))
     while not item_price:
         try:
+            print("Invalid input; enter a valid number")
             item_price = int(input("Item Price:"))
         except ValueError:
             print("Invalid input; enter a valid number")
@@ -136,7 +141,9 @@ def run_add_new(items_list):
         print("Invalid input; Priority must be either 1, 2 or 3")
         item_priority = input("Please enter the items priority:")
 
-    items_list.append([item_name, item_price, item_priority])
+    item_required = "r"
+
+    items_list.append([item_name, item_price, item_priority, item_required])
     print(items_list)
     print("{}, ${}, priority ({}) added to shopping list".format(item_name, item_price, item_priority))
     return items_list
