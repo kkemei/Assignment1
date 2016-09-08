@@ -1,7 +1,6 @@
 import csv
 import operator
 
-
 def main():
     items = open('items.csv')
     csv_file = csv.reader(items)
@@ -26,7 +25,7 @@ def main():
             menu_choice = menu()  # calls the main menu function
         elif menu_choice == "C":
             num_of_items = calculate_numbers(items_list)
-            completed_items = run_complete(shopping_list, items_list, number_to_be_marked, num_of_items)
+            completed_items = run_complete(shopping_list, items_list, number_to_be_marked)
             menu_choice = menu()  # calls the main menu function
         elif menu_choice == "A":
             num_of_items = calculate_numbers(items_list)
@@ -83,7 +82,6 @@ def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
     expected_price = sum(expected_price_list)
 
     print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
-
     number_entered = int(input("Enter the number of of an item to mark as completed"))
     while number_entered not in range(0, num_of_items):
         print("Invalid option")
@@ -96,10 +94,10 @@ def run_mark_item(num_of_items, items_list, shopping_list, number_to_be_marked):
     return shopping_list, number_to_be_marked
 
 
-def run_complete(shopping_list, items_list, number_to_be_marked, num_of_items):
+def run_complete(shopping_list, items_list, number_to_be_marked):
     counter = 0
     expected_price_list = []
-    # num_of_items = sum(1 for row in shopping_list)  # calculates how many different items there are
+    num_of_items = sum(1 for row in shopping_list)  # calculates how many different items there are
     items_list.sort(key=operator.itemgetter(2))
     if not shopping_list:
         print("\nNo complete items\n")
@@ -107,7 +105,7 @@ def run_complete(shopping_list, items_list, number_to_be_marked, num_of_items):
         print("Completed Items:\n")
         print(shopping_list)
         for row in shopping_list:
-            expected_price_list.append(float((items_list[number_to_be_marked[-1]][1])))
+            expected_price_list.append(float((items_list[number_to_be_marked[counter]][1])))
             print("{}. {:25} $ {} ({})".format(counter, shopping_list[counter],
                                                items_list[number_to_be_marked[counter]][1],
                                                items_list[number_to_be_marked[counter]][2]))
