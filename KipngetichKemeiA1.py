@@ -88,14 +88,14 @@ def menu():  # this function is the main menu. Allows the user to access differe
 
 
 def run_required(num_of_items, items_list):  # This function displays all the items inside the items list
-    counter = 0
+    row_counter = 0
     expected_price_list = []
     print("Required items:")
     items_list.sort(key=operator.itemgetter(2))
     for row in items_list:
-        print("{}. {:25} $ {:7} ({})".format(counter, row[0], row[1], row[2]))
-        expected_price_list.append(float((items_list[counter][1])))
-        counter += 1
+        print("{}. {:25} $ {:7} ({})".format(row_counter, row[0], row[1], row[2]))
+        expected_price_list.append(float((items_list[row_counter][1])))
+        row_counter += 1
     expected_price = sum(expected_price_list)
 
     print("total expected price for {} items is: ${}\n".format(num_of_items, expected_price))
