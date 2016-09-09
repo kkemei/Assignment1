@@ -146,7 +146,6 @@ def run_mark_item(num_of_items, items_list, shopping_list,
 
     print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
 
-
     while True:
         try:
             number_entered = int(input("Enter the number of of an item to mark as completed\n >>>"))
