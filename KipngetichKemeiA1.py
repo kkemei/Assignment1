@@ -44,7 +44,7 @@ def main():  # The main functions that runs the program
             add_items = run_add_new(items_list)
             menu_choice = menu()  # calls the main menu function
     num_of_items = calculate_numbers(items_list)
-    quit = run_quit(items_list, num_of_items)
+    quit_program = run_quit(items_list, num_of_items)
 
 
 """
@@ -99,7 +99,7 @@ def run_required(num_of_items, items_list):  # This function displays all the it
     expected_price = sum(expected_price_list)
 
     print("total expected price for {} items is: ${}\n".format(num_of_items, expected_price))
-    return expected_price
+    return expected_price, items_list
 
 
 """
@@ -137,6 +137,7 @@ def run_mark_item(num_of_items, items_list, shopping_list,
     items_counter = 0
     expected_price_list = []
     items_list.sort(key=operator.itemgetter(2))
+
     for row in items_list:
         print("{}. {:25} $ {:7} ({})".format(items_counter, row[0], row[1], row[2]))
         expected_price_list.append(float((items_list[items_counter][1])))
@@ -144,11 +145,14 @@ def run_mark_item(num_of_items, items_list, shopping_list,
     expected_price = sum(expected_price_list)
 
     print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
+
     while True:
         try:
             number_entered = int(input("Enter the number of of an item to mark as completed\n >>>"))
-            if number_entered not in range(0, num_of_items) or number_entered in number_to_be_marked:
+            if number_entered not in range(0, num_of_items):
                 print("Invalid option")
+            elif items_list[number_entered][3] == "c":
+                print("Item has already been marked, choose another item")
             else:
                 break
         except ValueError:
@@ -171,7 +175,6 @@ def run_complete(shopping_list, items_list,
         print("\nNo complete items\n")
     else:
         print("Completed Items:\n")
-        print(shopping_list)
         for row in shopping_list:
             expected_price_list.append(float((items_list[number_to_be_marked[counter]][1])))
             print("{}. {:25} $ {} ({})".format(counter, shopping_list[counter],
@@ -187,7 +190,7 @@ def run_complete(shopping_list, items_list,
 def run_add_new(items_list):  # allows the user to add a item to the programs item list
     priority_list = ["1", "2", "3"]
     item_name = str(input("Please enter a item name:\n >>>"))
-    while not item_name:
+    if item_name and item_name.strip():
         print("Input can not be blank")
         item_name = input("Please enter a item name:\n >>>")
 
