@@ -146,6 +146,7 @@ def run_mark_item(num_of_items, items_list, shopping_list,
 
     print("total expected price for {} items is: ${}".format(num_of_items, expected_price))
 
+
     while True:
         try:
             number_entered = int(input("Enter the number of of an item to mark as completed\n >>>"))
@@ -190,13 +191,13 @@ def run_complete(shopping_list, items_list,
 def run_add_new(items_list):  # allows the user to add a item to the programs item list
     priority_list = ["1", "2", "3"]
     item_name = str(input("Please enter a item name:\n >>>"))
-    if item_name and item_name.strip():
+    while not item_name:
         print("Input can not be blank")
-        item_name = input("Please enter a item name:\n >>>")
+        item_name = input("Please enter a item name:")
 
     while True:
         try:
-            item_price = float(input("Item Price:\n >>>"))
+            item_price = int(input("Item Price:\n >>>"))
             if item_price < 0:
                 print("Invalid input; Price must be greater that 0")
             else:
@@ -211,7 +212,7 @@ def run_add_new(items_list):  # allows the user to add a item to the programs it
 
     item_required = "r"
 
-    items_list.append([item_name, item_price, item_priority, item_required])
+    items_list.append([item_name, float(item_price), item_priority, item_required])
     print("{}, ${}, priority ({}) added to shopping list".format(item_name, float(item_price), item_priority))
     return items_list
 
